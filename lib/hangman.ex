@@ -1,9 +1,11 @@
 defmodule Hangman do
 
-  alias Hangman.Server
+  # alias Hangman.Server
 
   def new_game() do
-    Server.start_link()
+    # Server.start_link() just one at a time (one process model)
+   {:ok, pid } =  Supervisor.start_child(Hangman.Supervisor, []) # supports multiple processes
+    pid
   end
 
   def tally(pid) do
